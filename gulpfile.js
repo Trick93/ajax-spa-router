@@ -3,8 +3,22 @@
 var gulp = require("gulp");
 var connect = require("gulp-connect");
 
-gulp.task('webserver',function(){
-    connect.server();
+var htmlSrc = 'index.html';
+
+
+gulp.task('html', function(){
+    gulp.src(htmlSrc)
+        .pipe(connect.reload());
 });
 
-gulp.task('default',['webserver']);
+gulp.task('connect',function(){
+    connect.server({
+        livereload: true
+    });
+});
+
+gulp.task('watch',function(){
+    gulp.watch('index.html', ['html']);
+});
+
+gulp.task('default',['html','watch','connect']);
